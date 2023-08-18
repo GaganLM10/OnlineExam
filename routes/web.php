@@ -16,4 +16,5 @@ Route::post('/save-response', [DataController::class, 'saveResponse']);
 Route::post('/initialize-responses', [DataController::class, 'initializeResponses']);
 Route::post('/test-end', [DataController::class, 'testend']);
 Route::get('/test-end', [DataController::class, 'testend']);
+Route::post('/update-count', [DataController::class, 'updateCount']);
 ?>

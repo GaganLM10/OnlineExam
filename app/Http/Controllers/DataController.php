@@ -53,16 +53,6 @@ public function initializeResponses()
         foreach ($snoValues as $sno) {
             DB::table('responses')->insert(['qid' => $sno, 'answer' => '']);
         }
-
-    } else {
-        $count = DB::table('examstatus')->value('count');
-        if ($count >= 5) {
-            DB::table('examstatus')->update(['status' => 'finished']);
-            return response()->json(['message' => 'Exam over']);
-        } else {
-            DB::table('examstatus')->update(['count' => $count + 1]);
-            return response()->json(['message' => 'Exam has already started']);
-        }
     }
 }
 
@@ -73,6 +63,13 @@ public function saveResponse(Request $request)
                 ->where('qid', '=', $id)
                 ->update(['answer' => $a]);
             return response()->json(['message' => 'Response saved successfully']);
+}
+public function updateCount(Request $request)
+{
+    $newCount = $request->input('count');
+    DB::table('examstatus')->update(['count' => $newCount]);
+
+    return response()->json(['message' => 'Count updated successfully']);
 }
 public function testend()
 {
